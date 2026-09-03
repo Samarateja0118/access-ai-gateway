@@ -170,3 +170,7 @@ below the auth layer are the only claim being made.
 - **Redis** — per-tenant rate limiting and a short-TTL cache on `list_doors`
 - **AWS** — ECS/Fargate + RDS, or App Runner for a smaller footprint
 - **Streaming** — SSE on `/api/chat` with guardrails applied per tool result
+
+## License
+
+Apache-2.0. See [LICENSE](LICENSE).

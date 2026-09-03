@@ -3,3 +3,6 @@ dist/
 .env
 *.log
 coverage/
+
+# Personal build plan — kept locally, not part of the published project
+PLAN.md
