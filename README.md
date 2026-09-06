@@ -91,8 +91,9 @@ to be refused *before* a query is issued. That is the design claim being tested.
 
 ## Evasions handled
 
-The baseline regex layer catches the obvious payload and nothing else. Each of
-these needed a different technique, and each has a test:
+The baseline regex layer catches the obvious payload and nothing else. **Six
+cases** are covered below — five evasion techniques, plus one precision control
+that must *not* fire. Each needed a different technique and each has a test:
 
 | Evasion | Technique | Where |
 |---|---|---|
@@ -101,12 +102,17 @@ these needed a different technique, and each has a test:
 | Unicode homoglyphs (Cyrillic `е`) | NFKC normalisation + confusable mapping | `guardrails/normalize.ts` |
 | Zero-width joiner obfuscation | Strip the zero-width range before matching | `guardrails/normalize.ts` |
 | Non-English instruction overrides | Language-agnostic intent patterns | `guardrails/injection.ts` |
-| A door genuinely named "Ignore Previous Building Entrance" | Precision: scoring, not keyword presence | `guardrails/injection.ts` |
+| A door genuinely named "Ignore Previous Building Entrance" *(precision control — not an evasion; this one must be allowed through)* | Scoring, not keyword presence | `guardrails/injection.ts` |
 
 That last row was the hard half. A detector that blocks everything is trivial;
 the engineering is keeping precision while raising recall, which is why findings
 carry a confidence and `shouldBlock` weighs them rather than firing on any single
 match.
+
+Three counts get confused with each other, so to be unambiguous: **6 evasion
+cases** (this table), implemented by **7 scoring rules** in `injection.ts` and
+**3 preprocessing layers** (`normalize.ts`, `decode.ts`, `assemble.ts`) that run
+before the rules do. The 6 is the number that describes adversarial coverage.
 
 ## What happens with the guardrails removed
 

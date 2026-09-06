@@ -39,6 +39,9 @@ export async function runChat(ctx: RequestContext, userMessage: string): Promise
     const response = await getClient().messages.create({
       model: config.anthropic.model,
       max_tokens: config.anthropic.maxTokens,
+      // Adaptive thinking: the model decides how much to reason per turn.
+      // Fixed `budget_tokens` is removed on current models and 400s.
+      thinking: { type: 'adaptive' },
       system: systemPrompt(ctx),
       tools,
       messages,
