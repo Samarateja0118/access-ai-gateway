@@ -1,5 +1,8 @@
 # access-ai-gateway
 
+[![CI](https://github.com/Samarateja0118/access-ai-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/Samarateja0118/access-ai-gateway/actions/workflows/ci.yml)
+[![Live demo](https://img.shields.io/badge/live-demo-ff7a59)](https://access-ai-gateway.vercel.app)
+
 An LLM gateway over a multi-tenant access-control system, built to withstand
 **indirect prompt injection** and **cross-tenant data exposure**.
 
